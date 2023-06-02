@@ -1,0 +1,31 @@
+const estados = [
+  { extenso: 'Acre', sigla: 'AC' },
+  { extenso: 'Alagoas', sigla: 'AL' },
+  { extenso: 'Amapá', sigla: 'AP' },
+  { extenso: 'Amazonas', sigla: 'AM' },
+  { extenso: 'Bahia', sigla: 'BA' },
+  { extenso: 'Ceará', sigla: 'CE' },
+  { extenso: 'Distrito Federal', sigla: 'DF' },
+  { extenso: 'Espírito Santo', sigla: 'ES' },
+  { extenso: 'Goiás', sigla: 'GO' },
+  { extenso: 'Maranhão', sigla: 'MA' },
+  { extenso: 'Mato Grosso', sigla: 'MT' },
+  { extenso: 'Mato Grosso do Sul', sigla: 'MS' },
+  { extenso: 'Minas Gerais', sigla: 'MG' },
+  { extenso: 'Pará', sigla: 'PA' },
+  { extenso: 'Paraíba', sigla: 'PB' },
+  { extenso: 'Paraná', sigla: 'PR' },
+  { extenso: 'Pernambuco', sigla: 'PE' },
+  { extenso: 'Piauí', sigla: 'PI' },
+  { extenso: 'Rio de Janeiro', sigla: 'RJ' },
+  { extenso: 'Rio Grande do Norte', sigla: 'RN' },
+  { extenso: 'Rio Grande do Sul', sigla: 'RS' },
+  { extenso: 'Rondônia', sigla: 'RO' },
+  { extenso: 'Roraima', sigla: 'RR' },
+  { extenso: 'Santa Catarina', sigla: 'SC' },
+  { extenso: 'São Paulo', sigla: 'SP' },
+  { extenso: 'Sergipe', sigla: 'SE' },
+  { extenso: 'Tocantins', sigla: 'TO' }
+]
+
+export default estados

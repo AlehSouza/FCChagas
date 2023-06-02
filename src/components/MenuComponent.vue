@@ -1,23 +1,36 @@
 <template>
-  <div>
+  <div class="menu">
     <div class="icon-profile">
-      <img src="../assets/user.png" alt="">
+      <img src="../assets/user.png" alt="Usuário">
+      <label for="">Usuario</label>
     </div>
     <nav>
       <router-link to="/home">Clientes</router-link>
-      <router-link to="/">Sair</router-link>
+      <router-link class="logout" to="/">Sair</router-link>
     </nav>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
 .icon-profile {
-  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
   img {
     width: 50px;
     padding: 16px;
   }
+  label {
+    padding-bottom: 12px;
+    font-weight: bold;
+  }
+}
+
+.logout {
+  background-color: #ab0538;
+  color: white
 }
 
 nav {
