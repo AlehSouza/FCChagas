@@ -8,12 +8,12 @@
           <div v-show="p1" class="cliente-form" id="form-p1">
               <h1>
                 <img src="./../assets/person.png"/>
-                Adicionar novo cliente
+                Novo cliente
               </h1>
               <label>Nome</label>
-              <input v-model="novoCliente.nome" type="text" required placeholder="Alexandre Souza"/>
-              <label>CPF</label>
-              <input v-model="novoCliente.cpf" type="text" required placeholder="999.999.999-99"/>
+              <input v-model="novoCliente.nome" maxlength="100"  type="text" required placeholder="Alexandre Souza"/>
+              <label>CPF <i>*</i></label>
+              <input v-model="novoCliente.cpf" maxlength="14" type="text" required placeholder="999.999.999-99"/>
               <label>RG</label>
               <input v-model="novoCliente.rg" type="text" required placeholder="999.999.99"/>
               <label>UF</label>
@@ -24,14 +24,14 @@
               </select>
               <label>Órgão Expedição</label>
               <select v-model="novoCliente.orgaoExpedicao" required>
-                <option v-for="(org, i) in Orgs" v-bind:key="i" :value="org.extenso">
+                <option v-for="(org, i) in Orgs" v-bind:key="i" :value="org.sigla">
                   {{org.sigla}} - {{org.extenso}}
                 </option>
               </select>
               <label>Data Expedição</label>
-              <input v-model="novoCliente.dataExpedicao" type="date" required/>
-              <label>Data de nascimento</label>
-              <input v-model="novoCliente.dataNascimento" type="date" required/>
+              <input v-model="novoCliente.dataExpedicao" type="datetime-local" required/>
+              <label>Data de nascimento <i>*</i></label>
+              <input v-model="novoCliente.dataNascimento" type="datetime-local" required/>
               <label>Sexo</label>
               <select v-model="novoCliente.sexo">
                 <option value="Masculino">Masculino</option>
@@ -49,10 +49,10 @@
           <div v-show="p2" class="cliente-form" id="form-p2">
             <h1>
                 <img src="./../assets/pin.png"/>
-                Endereço
+                Endereço cliente
             </h1>
             <label>CEP</label>
-            <input v-model="novoCliente.endereco.cep" type="text" placeholder="Ex: 00000-000"/>
+            <input v-model="novoCliente.endereco.cep" maxlength="9" type="text" placeholder="Ex: 00000-000"/>
             <label>Logradouro</label>
             <input v-model="novoCliente.endereco.logradouro" type="text" placeholder="Ex: Av Paulista"/>
             <label>Numero</label>
@@ -64,7 +64,11 @@
             <label>Cidade</label>
             <input v-model="novoCliente.endereco.cidade" type="text" placeholder="Ex: São Paulo"/>
             <label>UF</label>
-            <input v-model="novoCliente.endereco.uf" type="text" placeholder="Ex: São Paulo"/>
+            <select v-model="novoCliente.endereco.uf" required>
+                <option v-for="(estado, i) in Estados" v-bind:key="i" :value="estado.sigla">
+                  {{estado.sigla}} - {{estado.extenso}}
+                </option>
+              </select>
             <button @click="postNovoCliente()">Adicionar</button>
             <button class="back-btn" @click="step()">Voltar</button>
           </div>
@@ -80,8 +84,6 @@
               <img src="./../assets/arrow.png"/>
               Ir a página de clientes
             </router-link>
-            <br/>
-            <SpinnerComponent/>
           </p>
         </div>
     </div>
@@ -90,19 +92,19 @@
 
 <script>
 import MenuComponent from '@/components/MenuComponent.vue'
-import SpinnerComponent from '@/components/SpinnerComponent.vue'
 import Orgs from './../utils/orgãosEmissores'
 import Estados from './../utils/estadosBr'
 import EstadosCiv from './../utils/estadosCívis'
+import dataToBackEnd from './../utils/dataToBackend'
 import axios from 'axios'
 
 export default {
   data () {
     return {
-      name: 'asd',
       Orgs,
       Estados,
       EstadosCiv,
+      dataToBackEnd,
       p1: true,
       p2: false,
       created: false,
@@ -131,8 +133,7 @@ export default {
     }
   },
   components: {
-    MenuComponent,
-    SpinnerComponent
+    MenuComponent
   },
   methods: {
     step () {
@@ -148,13 +149,17 @@ export default {
     },
     async postNovoCliente () {
       try {
-        this.created = !this.created
-        setTimeout(() => {
-          this.$router.push('/home')
-        }, 15000)
-        // axios.post('https://extranet.fcc.org.br/webapi/testecandidato/v1/Cliente/Adicionar', this.listaClientes).then(() => {
-        //   this.created = !this.created
-        // })
+        axios.post('https://extranet.fcc.org.br/webapi/testecandidato/v1/Cliente/Adicionar', {
+          ...this.novoCliente,
+          cpf: dataToBackEnd(this.novoCliente.cpf),
+          rg: dataToBackEnd(this.novoCliente.rg),
+          endereco: {
+            ...this.novoCliente.endereco,
+            cep: dataToBackEnd(this.novoCliente.endereco.cep)
+          }
+        }).then(() => {
+          this.created = !this.created
+        })
       } catch (err) {
         console.error(err)
       }
@@ -167,6 +172,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+i {
+  color: red;
+}
+
 .container-cliente {
   width: 100%;
   height: 100vh;
@@ -223,7 +232,6 @@ h1{
     flex-direction: column;
     display: flex;
     input, button, select, option {
-        padding: 8px;
         margin: 8px 0px;
         font-size: 14px;
         font-weight: 500;

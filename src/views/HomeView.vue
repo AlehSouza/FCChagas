@@ -28,10 +28,12 @@
                 </label>
               </div>
               <div>
-                <button>
-                  <img src="./../assets/pencil.png" alt="">
-                </button>
-                <button>
+                <router-link :to="{ path: '/detalhes-cliente/'+ customer.clienteId }">
+                  <button>
+                    <img src="./../assets/pencil.png" alt="">
+                  </button>
+                </router-link>
+                <button class="del" @click="delCliente(customer.clienteId, customer.nome)">
                   <img src="./../assets/trash.png" alt="">
                 </button>
               </div>
@@ -100,9 +102,22 @@ export default {
           })
         setTimeout(() => {
           this.loading = !this.loading
-        }, 2000)
+        }, 1000)
       } catch (err) {
         console.error(err)
+      }
+    },
+    async delCliente (id, name) {
+      if (confirm('Tem certeza que deseja excluir o cliente ' + name + '?') === true) {
+        try {
+          axios.delete('https://extranet.fcc.org.br/webapi/testecandidato/v1/Cliente/Excluir/' + id).then(() => {
+            this.updated = !this.updated
+            this.loading = !this.loading
+            this.getcustomers()
+          })
+        } catch (err) {
+          console.error(err)
+        }
       }
     }
   },
@@ -240,9 +255,9 @@ export default {
         &:hover {
           filter: contrast(0.5);
         }
-        &:last-child{
-          background-color: rgb(205, 50, 50);
-        }
+      }
+      .del {
+        background-color: #ab0538;
       }
     }
   }
