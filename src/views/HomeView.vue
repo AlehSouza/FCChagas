@@ -49,24 +49,24 @@
                 <thead>
                   <th>Nome</th>
                   <th>CPF</th>
-                  <th>RG</th>
-                  <th>Data de Nascimento</th>
-                  <th>Data de Expedição</th>
-                  <th>Orgão De Expedição</th>
-                  <th>Estado</th>
-                  <th>Estado Civil</th>
-                  <th>Sexo</th>
+                  <th class="cel-to-hide">RG</th>
+                  <th class="cel-to-hide">Data de Nascimento</th>
+                  <th class="cel-to-hide">Data de Expedição</th>
+                  <th class="cel-to-hide">Orgão De Expedição</th>
+                  <th class="cel-to-hide">Estado</th>
+                  <th class="cel-to-hide">Estado Civil</th>
+                  <th class="cel-to-hide">Sexo</th>
                 </thead>
                 <tbody>
                   <td>{{customer.nome}}</td>
                   <td>{{applyCPFValueMask(customer.cpf)}}</td>
-                  <td>{{customer.rg}}</td>
-                  <td>{{applyDateValueMask(customer.dataNascimento)}}</td>
-                  <td>{{applyDateValueMask(customer.dataExpedicao)}}</td>
-                  <td>{{customer.orgaoExpedicao}}</td>
-                  <td>{{customer.uf}}</td>
-                  <td>{{customer.estadoCivil}}</td>
-                  <td>{{customer.sexo}}</td>
+                  <td class="cel-to-hide">{{customer.rg}}</td>
+                  <td class="cel-to-hide">{{applyDateValueMask(customer.dataNascimento)}}</td>
+                  <td class="cel-to-hide">{{applyDateValueMask(customer.dataExpedicao)}}</td>
+                  <td class="cel-to-hide">{{customer.orgaoExpedicao}}</td>
+                  <td class="cel-to-hide">{{customer.uf}}</td>
+                  <td class="cel-to-hide">{{customer.estadoCivil}}</td>
+                  <td class="cel-to-hide">{{customer.sexo}}</td>
                 </tbody>
               </table>
             </div>
@@ -331,6 +331,29 @@ export default {
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1175px) {
+  .home-left {
+    max-width: 40px;
+    min-width: unset;
+  }
+  .container-customers{
+    max-width: 80vw;
+    min-width: 80vw;
+  }
+  .container-customers-search{
+    width: 100%;
+    max-width: unset;
+    min-width: unset;
+  }
+  .item-customer {
+    max-width: unset;
+    min-width: unset;
+  }
+  .cel-to-hide{
+    display: none;
   }
 }
 </style>

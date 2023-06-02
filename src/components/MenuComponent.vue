@@ -8,11 +8,11 @@
     <nav>
       <router-link to="/home">
         <img src="./../assets/clientes.png"/>
-        Clientes
+        <label> Clientes </label>
       </router-link>
       <router-link class="logout" to="/">
         <img src="./../assets/sair.png"/>
-        Sair
+        <label> Sair </label>
       </router-link>
     </nav>
   </div>
@@ -86,4 +86,36 @@ nav {
     }
   }
 }
+
+@media screen and (max-width: 1175px) {
+  .menu {
+    max-width: 40px;
+    min-width: unset;
+    .icon-profile {
+      label {
+        display: none;
+      }
+      span {
+        display: none;
+      }
+      a{
+        display: none;
+      }
+      .icon-profile-image {
+        width: 2px;
+        height: 2px;
+        border: 2px solid #ab0538;
+        margin-bottom: 13px
+      }
+    }
+  }
+  nav {
+    a{
+      label {
+        display: none;
+      }
+    }
+  }
+}
+
 </style>

@@ -343,4 +343,34 @@ h1{
     }
   }
 }
+
+@media screen and (max-width: 1175px) {
+  .float-back-btn {
+    display: none;
+  }
+  .detalhes-cliente-left {
+    max-width: 40px;
+    min-width: 40px;
+  }
+  .detalhes-cliente-right{
+    padding-top: 0px;
+    overflow-x: hidden;
+  }
+  .detalhes-cliente {
+    flex: unset;
+    flex-direction: column;
+    width: 75vw;
+    h1 {
+      width: 100%;
+    }
+    div {
+      width: 98%;
+    }
+  }
+  .detalhes-actions {
+    width: 75vw;
+    padding-bottom: 24px;
+  }
+}
+
 </style>

@@ -6,9 +6,9 @@
         alt="Usuário"
       />
       <label for="">Nome</label>
-      <input v-model="email" type="text" placeholder="Usuário"/>
+      <input v-model="email" type="text" placeholder="Usuário" @keyup.enter="login()"/>
       <label for="">Senha</label>
-      <input v-model="pass" type="password" placeholder="***********"/>
+      <input v-model="pass" type="password" placeholder="***********" @keyup.enter="login()"/>
       <button @click="login()">Entrar</button>
     </div>
   </div>

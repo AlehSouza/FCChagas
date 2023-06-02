@@ -290,4 +290,26 @@ h1{
     }
   }
 }
+
+@media screen and (max-width: 1175px) {
+  .cliente-left {
+    max-width: 40px;
+    min-width: 40px;
+  }
+  .cliente-right{
+    padding-top: 0px;
+    overflow-x: hidden;
+  }
+  .cliente-form {
+    width: 70vw;
+    flex: unset;
+    flex-direction: column;
+    h1 {
+      width: 100%;
+    }
+    div {
+      width: 98%;
+    }
+  }
+}
 </style>
