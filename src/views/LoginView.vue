@@ -6,7 +6,7 @@
         alt="Usuário"
       />
       <label for="">Nome</label>
-      <input v-model="user" type="text" placeholder="Usuário"/>
+      <input v-model="email" type="text" placeholder="Usuário"/>
       <label for="">Senha</label>
       <input v-model="pass" type="password" placeholder="***********"/>
       <button @click="login()">Entrar</button>
@@ -17,13 +17,15 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import users from './../login/index'
 
 export default {
   name: 'LoginView',
 
   data () {
     return {
-      user: '',
+      users,
+      email: '',
       pass: ''
     }
   },
@@ -35,7 +37,15 @@ export default {
   methods: {
     async login () {
       try {
-        this.$router.push('/home')
+        for (let i = 0; i < users.length; i++) {
+          if (this.email.toLowerCase() === users[i].email.toLowerCase() && this.pass === users[i].pass) {
+            console.log(users[i])
+            localStorage.setItem('user', JSON.stringify(users[i]))
+            this.$router.push('/home')
+            return
+          }
+        }
+        alert('Usuário ou senha incorretos, entre em contato com o administrador do sistema')
       } catch (err) {
         console.error(err)
       }
