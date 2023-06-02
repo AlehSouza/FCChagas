@@ -217,9 +217,7 @@ export default {
   min-width: 900px;
   height: 100%;
   max-width: 1270px;
-  margin: 25px auto;
-  flex-direction: column;
-  display: flex;
+  margin: 20px auto;
 }
 
 .container-customers-search{
@@ -227,7 +225,7 @@ export default {
   min-width: 900px;
   border-radius: 8px;
   border: 2px solid #dee2e6;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   width: 100%;
   display: flex;
   input {

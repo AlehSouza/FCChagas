@@ -176,7 +176,6 @@ export default {
         }
       }
     }
-
   },
   beforeMount () {
     this.getCliente()
