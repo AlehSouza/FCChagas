@@ -16,6 +16,12 @@
           <SpinnerComponent />
         </div>
         <div v-else class="container-customers">
+          <div class="container-customers-search">
+            <input v-model="search" type="text" placeholder="Digite Nome ou CPF para buscar um cliente "/>
+            <button @click="searchCliente()">
+              <img src="./../assets/lupa.png">
+            </button>
+          </div>
           <div
             class="item-customer"
             v-for="(customer, i) in customers"
@@ -76,12 +82,14 @@ import MenuComponent from '@/components/MenuComponent.vue'
 import SpinnerComponent from '@/components/SpinnerComponent.vue'
 import { applyDateValueMask, applyCPFValueMask } from './../utils'
 import axios from 'axios'
+import dataToBackEnd from '@/utils/dataToBackend'
 
 export default {
   data () {
     return {
       loading: true,
       customers: [],
+      search: '',
       applyDateValueMask,
       applyCPFValueMask
     }
@@ -91,7 +99,7 @@ export default {
     SpinnerComponent
   },
   methods: {
-    async getcustomers () {
+    async getClientes () {
       try {
         axios
           .get(
@@ -113,16 +121,26 @@ export default {
           axios.delete('https://extranet.fcc.org.br/webapi/testecandidato/v1/Cliente/Excluir/' + id).then(() => {
             this.updated = !this.updated
             this.loading = !this.loading
-            this.getcustomers()
+            this.getClientes()
           })
         } catch (err) {
           console.error(err)
         }
       }
+    },
+    searchCliente () {
+      if (this.search === '') return
+      for (let i = 0; i < this.customers.length; i++) {
+        if (this.customers[i].cpf === dataToBackEnd(this.search) || this.customers[i].nome === this.search) {
+          this.$router.push('/detalhes-cliente/' + this.customers[i].clienteId)
+          return
+        }
+      }
+      alert('Nenhum dado foi encontrado! verifique novamente sua pesquisa')
     }
   },
   beforeMount () {
-    this.getcustomers()
+    this.getClientes()
   }
 }
 </script>
@@ -172,6 +190,7 @@ export default {
   width: 100%;
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .home-left {
@@ -185,8 +204,9 @@ export default {
 
 .home-right {
   width: 100%;
-  height: 99vh;
+  height: 99.5vh;
   background-color: #f6f6f6;
+  border-bottom: 5px solid #ab0538;
   flex-direction: column;
   overflow: auto;
   display: flex;
@@ -194,11 +214,43 @@ export default {
 
 .container-customers {
   width: 75%;
+  min-width: 900px;
   height: 100%;
   max-width: 1270px;
   margin: 25px auto;
   flex-direction: column;
   display: flex;
+}
+
+.container-customers-search{
+  overflow: hidden;
+  min-width: 900px;
+  border-radius: 8px;
+  border: 2px solid #dee2e6;
+  margin-bottom: 25px;
+  width: 100%;
+  display: flex;
+  input {
+    width: 100%;
+    padding: 16px;
+  }
+  button {
+    background-color: #ab0538;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    img {
+      width: 20px;
+      margin: 0 8px;
+    }
+  }
+  input, button{
+      font-size: 14px;
+      font-weight: 500;
+      outline: none;
+      border: 0px;
+  }
 }
 
 .item-customer {

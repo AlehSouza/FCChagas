@@ -18,13 +18,13 @@
               <input v-model="novoCliente.rg" type="text" required placeholder="999.999.99"/>
               <label>UF</label>
               <select v-model="novoCliente.uf" required>
-                <option v-for="(estado, i) in Estados" v-bind:key="i" :value="estado.sigla">
+                <option v-for="(estado, i) in estadosBr" v-bind:key="i" :value="estado.sigla">
                   {{estado.sigla}} - {{estado.extenso}}
                 </option>
               </select>
               <label>Órgão Expedição</label>
               <select v-model="novoCliente.orgaoExpedicao" required>
-                <option v-for="(org, i) in Orgs" v-bind:key="i" :value="org.sigla">
+                <option v-for="(org, i) in orgaosEmissores" v-bind:key="i" :value="org.sigla">
                   {{org.sigla}} - {{org.extenso}}
                 </option>
               </select>
@@ -40,7 +40,7 @@
               </select>
               <label>Estado Civil</label>
               <select v-model="novoCliente.estadoCivil" required>
-                <option v-for="(estadoCivil, i) in EstadosCiv" v-bind:key="i" :value="estadoCivil.value">
+                <option v-for="(estadoCivil, i) in estadosCivis" v-bind:key="i" :value="estadoCivil.value">
                   {{estadoCivil.label}}
                 </option>
               </select>
@@ -65,7 +65,7 @@
             <input v-model="novoCliente.endereco.cidade" type="text" placeholder="Ex: São Paulo"/>
             <label>UF</label>
             <select v-model="novoCliente.endereco.uf" required>
-                <option v-for="(estado, i) in Estados" v-bind:key="i" :value="estado.sigla">
+                <option v-for="(estado, i) in estadosBr" v-bind:key="i" :value="estado.sigla">
                   {{estado.sigla}} - {{estado.extenso}}
                 </option>
               </select>
@@ -92,18 +92,15 @@
 
 <script>
 import MenuComponent from '@/components/MenuComponent.vue'
-import Orgs from './../utils/orgãosEmissores'
-import Estados from './../utils/estadosBr'
-import EstadosCiv from './../utils/estadosCívis'
-import dataToBackEnd from './../utils/dataToBackend'
+import { estadosBr, estadosCivis, orgaosEmissores, dataToBackEnd } from './../utils'
 import axios from 'axios'
 
 export default {
   data () {
     return {
-      Orgs,
-      Estados,
-      EstadosCiv,
+      estadosBr,
+      estadosCivis,
+      orgaosEmissores,
       dataToBackEnd,
       p1: true,
       p2: false,

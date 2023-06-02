@@ -28,7 +28,7 @@
             <div>
                 <label>UF</label>
                 <select v-model="cliente.uf" required>
-                    <option v-for="(estado, i) in Estados" v-bind:key="i" :value="estado.sigla">
+                    <option v-for="(estado, i) in estadosBr" v-bind:key="i" :value="estado.sigla">
                         {{estado.sigla}} - {{estado.extenso}}
                     </option>
                 </select>
@@ -36,7 +36,7 @@
             <div>
                 <label>Órgão Expedição</label>
                 <select v-model="cliente.orgaoExpedicao" required>
-                    <option v-for="(org, i) in Orgs" v-bind:key="i" :value="org.sigla">
+                    <option v-for="(org, i) in orgaosEmissores" v-bind:key="i" :value="org.sigla">
                         {{org.sigla}} - {{org.extenso}}
                     </option>
                 </select>
@@ -60,7 +60,7 @@
             <div>
                 <label>Estado Civil</label>
                 <select v-model="cliente.estadoCivil" required>
-                    <option v-for="(estadoCivil, i) in EstadosCiv" v-bind:key="i" :value="estadoCivil.value">
+                    <option v-for="(estadoCivil, i) in estadosCivis" v-bind:key="i" :value="estadoCivil.value">
                         {{estadoCivil.label}}
                     </option>
                 </select>
@@ -98,7 +98,7 @@
             <div>
                 <label>UF</label>
                 <select v-model="cliente.endereco.uf" required>
-                    <option v-for="(estado, i) in Estados" v-bind:key="i" :value="estado.sigla">
+                    <option v-for="(estado, i) in estadosBr" v-bind:key="i" :value="estado.sigla">
                         {{estado.sigla}} - {{estado.extenso}}
                     </option>
                 </select>
@@ -128,16 +128,14 @@
 
 <script>
 import MenuComponent from '@/components/MenuComponent.vue'
-import Orgs from './../utils/orgãosEmissores'
-import Estados from './../utils/estadosBr'
-import EstadosCiv from './../utils/estadosCívis'
+import { estadosCivis, estadosBr, orgaosEmissores } from '@/utils'
 import axios from 'axios'
 export default {
   data () {
     return {
-      Orgs,
-      Estados,
-      EstadosCiv,
+      orgaosEmissores,
+      estadosBr,
+      estadosCivis,
       updated: false,
       cliente: {}
     }
@@ -153,7 +151,6 @@ export default {
       try {
         await axios.get('https://extranet.fcc.org.br/webapi/testecandidato/v1/Cliente/ListarPorId/' + this.$route.params.id).then((res) => {
           this.cliente = res.data
-          console.log(this.cliente)
         })
       } catch (err) {
         console.error(err)
